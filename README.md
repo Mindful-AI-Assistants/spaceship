@@ -82,6 +82,17 @@ pip install numpy pandas scikit-learn matplotlib seaborn
 
 ## Spaceship Titanic Analysis and Modeling
 
+### CODE
+
+
+
+
+
+
+
+
+<BR>
+
 ### ExplainING the key parts of this code and process in more detail:
 
 1. ### Data Exploration
