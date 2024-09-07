@@ -84,10 +84,226 @@ This repository contains a project for analyzing and predicting whether passenge
 
 ### 🐍 Code
 
+Aqui está uma versão revisada e aprimorada do código, configurado para uma apresentação elegante e padronizada no formato de um Jupyter Notebook. Abaixo, sugiro como organizar as seções, incluindo melhorias de clareza, consistência e ajustes que facilitam a visualização e interação. Cada célula do notebook será comentada para que sirva como uma apresentação fluída.
+
+---
+
+# **Spaceship Titanic - Transport Prediction**
 
 
+---
 
+## **1. Introdução**
+```markdown
+### Introdução
+Este projeto busca prever se um passageiro a bordo do Spaceship Titanic será transportado para outra dimensão, utilizando algoritmos de Machine Learning. Utilizaremos o dataset da competição Kaggle Spaceship Titanic e exploraremos os dados, realizaremos engenharia de atributos e implementaremos diversos modelos de aprendizado de máquina para fazer as previsões.
+```
 
+---
+
+## **2. Instalação de Dependências**
+```python
+# Instalando as bibliotecas necessárias
+!pip install numpy pandas matplotlib seaborn scikit-learn
+
+# Importando as bibliotecas para o projeto
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.metrics import accuracy_score, confusion_matrix
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.impute import SimpleImputer
+from sklearn.pipeline import Pipeline
+from sklearn.compose import ColumnTransformer
+
+# Garantindo que as visualizações sejam mostradas automaticamente
+%matplotlib inline
+```
+
+---
+
+## **3. Carregamento dos Dados**
+```python
+# Carregando os dados
+train_data = pd.read_csv('/kaggle/input/spaceship-titanic/train.csv')
+test_data = pd.read_csv('/kaggle/input/spaceship-titanic/test.csv')
+
+# Verificando as primeiras linhas do dataset
+train_data.head()
+```
+
+---
+
+## **4. Exploração Inicial dos Dados**
+```python
+# Verificando informações gerais do dataset
+train_data.info()
+
+# Verificando a contagem dos valores de 'Transported'
+plt.figure(figsize=(8, 6))
+sns.countplot(x='Transported', data=train_data)
+plt.title('Distribuição de Transportados')
+plt.show()
+```
+
+---
+
+## **5. Visualização de Variáveis Numéricas e Target**
+```python
+# Definindo as features numéricas
+numeric_features = ['Age', 'RoomService', 'FoodCourt', 'ShoppingMall', 'Spa', 'VRDeck']
+
+# Visualizando a relação entre variáveis numéricas e a variável-alvo
+for feature in numeric_features:
+    plt.figure(figsize=(10, 6))
+    sns.boxplot(x='Transported', y=feature, data=train_data)
+    plt.title(f'{feature} vs Transported')
+    plt.show()
+```
+
+---
+
+## **6. Engenharia de Atributos**
+```python
+# Extraindo componentes da cabine
+train_data[['Deck', 'Num', 'Side']] = train_data['Cabin'].str.split('/', expand=True)
+
+# Criando uma feature de gasto total
+train_data['TotalSpend'] = (train_data['RoomService'] + train_data['FoodCourt'] + 
+                            train_data['ShoppingMall'] + train_data['Spa'] + train_data['VRDeck'])
+
+# Verificando as primeiras linhas após a engenharia de atributos
+train_data[['Cabin', 'Deck', 'Num', 'Side', 'TotalSpend']].head()
+```
+
+---
+
+## **7. Pré-processamento de Dados**
+```python
+# Criando pipelines para processamento de dados
+numeric_transformer = Pipeline(steps=[
+    ('imputer', SimpleImputer(strategy='median')),
+    ('scaler', StandardScaler())
+])
+
+categorical_transformer = Pipeline(steps=[
+    ('imputer', SimpleImputer(strategy='constant', fill_value='missing')),
+    ('onehot', OneHotEncoder(handle_unknown='ignore'))
+])
+
+# Aplicando as transformações às colunas
+preprocessor = ColumnTransformer(
+    transformers=[
+        ('num', numeric_transformer, numeric_features),
+        ('cat', categorical_transformer, ['HomePlanet', 'Destination', 'Deck', 'Side'])
+    ])
+```
+
+---
+
+## **8. Separação de Dados e Treinamento de Modelos**
+```python
+# Separando os dados em treino e validação
+X = train_data.drop(columns=['Transported'])
+y = train_data['Transported']
+X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Definindo os modelos a serem utilizados
+models = {
+    'Logistic Regression': LogisticRegression(),
+    'Random Forest': RandomForestClassifier(),
+    'Gradient Boosting': GradientBoostingClassifier()
+}
+
+# Treinando e avaliando os modelos
+for name, model in models.items():
+    pipeline = Pipeline(steps=[('preprocessor', preprocessor), ('classifier', model)])
+    pipeline.fit(X_train, y_train)
+    y_pred = pipeline.predict(X_val)
+    
+    print(f"\n{name} - Acurácia: {accuracy_score(y_val, y_pred):.4f}")
+    
+    # Matriz de confusão
+    cm = confusion_matrix(y_val, y_pred)
+    plt.figure(figsize=(8, 6))
+    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
+    plt.title(f'Matriz de Confusão - {name}')
+    plt.show()
+```
+
+---
+
+## **9. Otimização de Hiperparâmetros**
+```python
+# Definindo os hiperparâmetros para otimização do Random Forest
+param_grid = {
+    'classifier__n_estimators': [100, 200, 300],
+    'classifier__max_depth': [None, 10, 20, 30],
+    'classifier__min_samples_split': [2, 5, 10],
+    'classifier__min_samples_leaf': [1, 2, 4]
+}
+
+# Grid Search para Random Forest
+rf_pipeline = Pipeline(steps=[('preprocessor', preprocessor), ('classifier', RandomForestClassifier())])
+grid_search = GridSearchCV(rf_pipeline, param_grid, cv=5, n_jobs=-1, verbose=2)
+grid_search.fit(X_train, y_train)
+
+# Melhor combinação de parâmetros
+print("Melhores parâmetros:", grid_search.best_params_)
+```
+
+---
+
+## **10. Importância das Features**
+```python
+# Melhor modelo após a busca
+best_model = grid_search.best_estimator_
+
+# Importância das features
+feature_importance = best_model.named_steps['classifier'].feature_importances_
+feature_names = np.concatenate([numeric_features, best_model.named_steps['preprocessor'].transformers_[1][1].get_feature_names_out()])
+
+# Criando DataFrame para visualização
+feature_importance_df = pd.DataFrame({'feature': feature_names, 'importance': feature_importance})
+feature_importance_df = feature_importance_df.sort_values(by='importance', ascending=False).head(15)
+
+# Visualizando a importância das 15 principais features
+plt.figure(figsize=(10, 6))
+sns.barplot(x='importance', y='feature', data=feature_importance_df)
+plt.title('Top 15 Importância das Features')
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## **11. Submissão**
+```python
+# Criando a feature de gasto total no dataset de teste
+test_data['TotalSpend'] = (test_data['RoomService'] + test_data['FoodCourt'] + 
+                           test_data['ShoppingMall'] + test_data['Spa'] + test_data['VRDeck'])
+
+# Aplicando o melhor modelo aos dados de teste
+test_predictions = best_model.predict(test_data)
+
+# Criando o arquivo de submissão
+submission = pd.DataFrame({'PassengerId': test_data['PassengerId'], 'Transported': test_predictions})
+submission.to_csv('submission.csv', index=False)
+```
+
+---
+
+## **Conclusão**
+```markdown
+### Conclusão
+Este projeto aborda um pipeline completo de aprendizado de máquina, desde a exploração dos dados até a criação de features, modelagem e submissão para uma competição Kaggle. Além disso, utilizamos a otimização de hiperparâmetros para melhorar o desempenho dos modelos.
+```
+
+<br>
 
 
 ### 🐍 Explaining the key parts of this code and process in more detail:
@@ -130,7 +346,10 @@ This repository contains a project for analyzing and predicting whether passenge
 
 This process allows for a comprehensive exploration of the data, careful feature engineering, and a systematic approach to model selection and improvement. The use of pipelines ensures that all preprocessing steps are consistently applied to both training and test data.
 
-### Analysis of Results
+
+
+
+## 📈 Analysis of Results
 
 1. **Distribution of Transported**:
    - **Plot**: Shows the count of transported vs. non-transported passengers. This helps understand the class distribution.
