@@ -83,55 +83,6 @@ pip install numpy pandas scikit-learn matplotlib seaborn
 
 ### 🐍 Code
 
-
-
-
-
-
-
-<BR>
-
-### Explaining the key parts of this code and process in more detail:
-
-1. ### Data Exploration
-   - We start by loading the data and examining its structure using `train_data.info()`.
-   - We check for missing values using `train_data.isnull().sum()`.
-   - We visualize the distribution of the target variable ('Transported') and explore its relationship with numeric and categorical features using seaborn plots.
-
-2. ### Feature Engineering
-   - We extract information from the 'Cabin' column, splitting it into 'Deck', 'Num', and 'Side'.
-   - We create a 'TotalSpend' feature by summing up all the spending-related columns.
-   - We add a 'GroupSize' feature by grouping passengers with similar IDs.
-
-3. ### Preprocessing
-   - We define separate pipelines for numeric and categorical features.
-   - For numeric features, we impute missing values with the median and apply standard scaling.
-   - For categorical features, we impute missing values with 'missing' and apply one-hot encoding.
-   - We use `ColumnTransformer` to apply these preprocessing steps to the appropriate columns.
-
-4. ### Model Selection and Training
-   - We try three different models: Logistic Regression, Random Forest, and Gradient Boosting.
-   - For each model, we create a pipeline that includes the preprocessor and the classifier.
-   - We train each model and evaluate its performance using accuracy score and classification report.
-   - We visualize the confusion matrix for each model.
-
-5. ### Hyperparameter Tuning
-   - We perform a grid search for the Random Forest model to find the best hyperparameters.
-   - We use cross-validation to ensure robust results.
-   - After finding the best parameters, we evaluate the best model on the validation set.
-
-6. ### Feature Importance
-   - We extract feature importance from the best Random Forest model.
-   - We visualize the top 15 most important features.
-
-7. ### Prepare Submission
-   - We preprocess the test data using the same pipeline.
-   - We make predictions on the test set using the best model.
-   - We create a submission file in the format required by Kaggle.
-
-This process allows for a comprehensive exploration of the data, careful feature engineering, and a systematic approach to model selection and improvement. The use of pipelines ensures that all preprocessing steps are consistently applied to both training and test data.
-
-
 # Space Titanic: Analysis and Prediction
 
 This repository contains a project for analyzing and predicting whether passengers will be transported using the Space Titanic dataset from [Kaggle](https://www.kaggle.com/c/spaceship-titanic). The goal is to predict if a passenger will be transported or not.
@@ -358,7 +309,45 @@ submission.to_csv('submission.csv', index=False)
 print("Submission file created.")
 ```
 
----
+### Explaining the key parts of this code and process in more detail:
+
+1. ### Data Exploration
+   - We start by loading the data and examining its structure using `train_data.info()`.
+   - We check for missing values using `train_data.isnull().sum()`.
+   - We visualize the distribution of the target variable ('Transported') and explore its relationship with numeric and categorical features using seaborn plots.
+
+2. ### Feature Engineering
+   - We extract information from the 'Cabin' column, splitting it into 'Deck', 'Num', and 'Side'.
+   - We create a 'TotalSpend' feature by summing up all the spending-related columns.
+   - We add a 'GroupSize' feature by grouping passengers with similar IDs.
+
+3. ### Preprocessing
+   - We define separate pipelines for numeric and categorical features.
+   - For numeric features, we impute missing values with the median and apply standard scaling.
+   - For categorical features, we impute missing values with 'missing' and apply one-hot encoding.
+   - We use `ColumnTransformer` to apply these preprocessing steps to the appropriate columns.
+
+4. ### Model Selection and Training
+   - We try three different models: Logistic Regression, Random Forest, and Gradient Boosting.
+   - For each model, we create a pipeline that includes the preprocessor and the classifier.
+   - We train each model and evaluate its performance using accuracy score and classification report.
+   - We visualize the confusion matrix for each model.
+
+5. ### Hyperparameter Tuning
+   - We perform a grid search for the Random Forest model to find the best hyperparameters.
+   - We use cross-validation to ensure robust results.
+   - After finding the best parameters, we evaluate the best model on the validation set.
+
+6. ### Feature Importance
+   - We extract feature importance from the best Random Forest model.
+   - We visualize the top 15 most important features.
+
+7. ### Prepare Submission
+   - We preprocess the test data using the same pipeline.
+   - We make predictions on the test set using the best model.
+   - We create a submission file in the format required by Kaggle.
+
+This process allows for a comprehensive exploration of the data, careful feature engineering, and a systematic approach to model selection and improvement. The use of pipelines ensures that all preprocessing steps are consistently applied to both training and test data.
 
 ### Analysis of Results
 
@@ -378,6 +367,8 @@ print("Submission file created.")
    - **Plot**: A bar plot of the top 15 most important features from the best-performing model. This helps identify which features have the most influence on predictions.
 
 These plots and analyses help to understand the data, the performance of various models, and the significance of different features in the prediction task.
+
+
 
 
 ## Future Work
