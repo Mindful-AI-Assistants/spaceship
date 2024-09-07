@@ -1,6 +1,6 @@
 
 
-# **Spaceship Titanic - Transport Prediction**
+# **Spaceship Titanic 🚀 Transport Prediction**
 ## **Predicting Transport on the Spaceship Titanic** - Kaggle Competition
 
 #### This competition runs indefinitely with a rolling leaderboard. [Learn more](https://www.kaggle.com/docs/competitions#getting-started).
