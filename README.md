@@ -241,6 +241,9 @@ test_predictions = best_model.predict(test_data)
 # Create the submission file
 submission = pd.DataFrame({'PassengerId': test_data['PassengerId'], 'Transported': test_predictions})
 submission.to_csv('submission.csv', index=False)
+
+# Final output message
+print("Submission file 'submission.csv' created successfully.")
 ```
 
 
