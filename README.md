@@ -13,13 +13,6 @@ In this competition, we use machine learning techniques to analyze the recovered
 
 
 
-
-## Project Description
-
-In this competition, we use machine learning techniques to analyze the recovered records from the Spaceship Titanic's damaged computer system and predict which passengers were transported to an alternate dimension.
-
-## Table of Contenbt
-
 1. A project description
 2. Instructions for getting started
 3. An overview of the project structure
