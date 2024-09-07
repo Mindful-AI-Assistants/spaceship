@@ -3,7 +3,7 @@
 
 This project aims to predict whether a passenger aboard the Spaceship Titanic will be transported to another dimension using machine learning algorithms. We'll use the dataset provided by Kaggle, explore the data, perform feature engineering, and implement various machine learning models to predict the outcome with high accuracy.
 
-#
+
 
 ## **1. Project Structure**
 
@@ -18,7 +18,7 @@ The project follows a complete machine learning pipeline, which includes:
 7. **Hyperparameter Optimization**: Using grid search to fine-tune the best model.
 8. **Submission**: Predicting on the test set and creating a submission file for Kaggle.
 
----
+
 
 ## **2. Installation of Dependencies**
 
@@ -113,7 +113,7 @@ train_data['TotalSpend'] = (train_data['RoomService'] + train_data['FoodCourt'] 
 train_data[['Cabin', 'Deck', 'Num', 'Side', 'TotalSpend']].head()
 ```
 
----
+
 
 ## **6. Data Preprocessing**
 
@@ -225,7 +225,6 @@ plt.tight_layout()
 plt.show()
 ```
 
----
 
 ## **10. Submission**
 
@@ -244,7 +243,6 @@ submission = pd.DataFrame({'PassengerId': test_data['PassengerId'], 'Transported
 submission.to_csv('submission.csv', index=False)
 ```
 
----
 
 ## **11. Conclusion**
 
@@ -252,9 +250,7 @@ This project illustrates the complete machine learning workflow, from data explo
 
 For more detailed exploration, you can access the [complete Jupyter notebook](link-to-notebook) with all the code and visualizations.
 
----
 
-With this comprehensive setup, the project README not only explains each step but also includes the full code to run the project from start to finish.s
 
 ## 👀 Future Work
 
