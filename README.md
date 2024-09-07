@@ -82,6 +82,8 @@ pip install numpy pandas scikit-learn matplotlib seaborn
 
 ## Spaceship Titanic Analysis and Modeling
 
+### ExplainING the key parts of this code and process in more detail:
+
 1. ### Data Exploration
    - We start by loading the data and examining its structure using `train_data.info()`.
    - We check for missing values using `train_data.isnull().sum()`.
