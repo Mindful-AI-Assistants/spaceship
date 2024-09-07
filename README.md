@@ -1,6 +1,8 @@
 
 
-# 🚀 Spaceship Titanic Prediction - Kaggle Competition
+# **Spaceship Titanic - Transport Prediction**
+## **Predicting Transport on the Spaceship Titanic** - Kaggle Competition
+
 #### This competition runs indefinitely with a rolling leaderboard. [Learn more](https://www.kaggle.com/docs/competitions#getting-started).
 
 
@@ -90,23 +92,22 @@ Aqui está uma versão revisada e aprimorada do código, configurado para uma ap
 
 # **Spaceship Titanic - Transport Prediction**
 
-
 ---
 
-## **1. Introdução**
+## **1. Introduction**
 ```markdown
-### Introdução
-Este projeto busca prever se um passageiro a bordo do Spaceship Titanic será transportado para outra dimensão, utilizando algoritmos de Machine Learning. Utilizaremos o dataset da competição Kaggle Spaceship Titanic e exploraremos os dados, realizaremos engenharia de atributos e implementaremos diversos modelos de aprendizado de máquina para fazer as previsões.
+### Introduction
+This project aims to predict whether a passenger aboard the Spaceship Titanic will be transported to another dimension using machine learning algorithms. We will use the Kaggle Spaceship Titanic dataset, explore the data, perform feature engineering, and implement various machine learning models to make predictions.
 ```
 
 ---
 
-## **2. Instalação de Dependências**
+## **2. Installation of Dependencies**
 ```python
-# Instalando as bibliotecas necessárias
+# Installing necessary libraries
 !pip install numpy pandas matplotlib seaborn scikit-learn
 
-# Importando as bibliotecas para o projeto
+# Importing libraries for the project
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -120,44 +121,44 @@ from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
 
-# Garantindo que as visualizações sejam mostradas automaticamente
+# Ensuring that visualizations are automatically shown
 %matplotlib inline
 ```
 
 ---
 
-## **3. Carregamento dos Dados**
+## **3. Loading the Data**
 ```python
-# Carregando os dados
+# Loading the data
 train_data = pd.read_csv('/kaggle/input/spaceship-titanic/train.csv')
 test_data = pd.read_csv('/kaggle/input/spaceship-titanic/test.csv')
 
-# Verificando as primeiras linhas do dataset
+# Checking the first rows of the dataset
 train_data.head()
 ```
 
 ---
 
-## **4. Exploração Inicial dos Dados**
+## **4. Initial Data Exploration**
 ```python
-# Verificando informações gerais do dataset
+# Checking general dataset information
 train_data.info()
 
-# Verificando a contagem dos valores de 'Transported'
+# Checking the count of 'Transported' values
 plt.figure(figsize=(8, 6))
 sns.countplot(x='Transported', data=train_data)
-plt.title('Distribuição de Transportados')
+plt.title('Transported Distribution')
 plt.show()
 ```
 
 ---
 
-## **5. Visualização de Variáveis Numéricas e Target**
+## **5. Visualization of Numerical Variables and Target**
 ```python
-# Definindo as features numéricas
+# Defining numerical features
 numeric_features = ['Age', 'RoomService', 'FoodCourt', 'ShoppingMall', 'Spa', 'VRDeck']
 
-# Visualizando a relação entre variáveis numéricas e a variável-alvo
+# Visualizing the relationship between numerical variables and the target variable
 for feature in numeric_features:
     plt.figure(figsize=(10, 6))
     sns.boxplot(x='Transported', y=feature, data=train_data)
@@ -167,24 +168,24 @@ for feature in numeric_features:
 
 ---
 
-## **6. Engenharia de Atributos**
+## **6. Feature Engineering**
 ```python
-# Extraindo componentes da cabine
+# Extracting cabin components
 train_data[['Deck', 'Num', 'Side']] = train_data['Cabin'].str.split('/', expand=True)
 
-# Criando uma feature de gasto total
+# Creating a total spend feature
 train_data['TotalSpend'] = (train_data['RoomService'] + train_data['FoodCourt'] + 
                             train_data['ShoppingMall'] + train_data['Spa'] + train_data['VRDeck'])
 
-# Verificando as primeiras linhas após a engenharia de atributos
+# Checking the first rows after feature engineering
 train_data[['Cabin', 'Deck', 'Num', 'Side', 'TotalSpend']].head()
 ```
 
 ---
 
-## **7. Pré-processamento de Dados**
+## **7. Data Preprocessing**
 ```python
-# Criando pipelines para processamento de dados
+# Creating pipelines for data preprocessing
 numeric_transformer = Pipeline(steps=[
     ('imputer', SimpleImputer(strategy='median')),
     ('scaler', StandardScaler())
@@ -195,7 +196,7 @@ categorical_transformer = Pipeline(steps=[
     ('onehot', OneHotEncoder(handle_unknown='ignore'))
 ])
 
-# Aplicando as transformações às colunas
+# Applying the transformations to the columns
 preprocessor = ColumnTransformer(
     transformers=[
         ('num', numeric_transformer, numeric_features),
@@ -205,41 +206,41 @@ preprocessor = ColumnTransformer(
 
 ---
 
-## **8. Separação de Dados e Treinamento de Modelos**
+## **8. Data Splitting and Model Training**
 ```python
-# Separando os dados em treino e validação
+# Splitting the data into training and validation sets
 X = train_data.drop(columns=['Transported'])
 y = train_data['Transported']
 X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Definindo os modelos a serem utilizados
+# Defining the models to be used
 models = {
     'Logistic Regression': LogisticRegression(),
     'Random Forest': RandomForestClassifier(),
     'Gradient Boosting': GradientBoostingClassifier()
 }
 
-# Treinando e avaliando os modelos
+# Training and evaluating the models
 for name, model in models.items():
     pipeline = Pipeline(steps=[('preprocessor', preprocessor), ('classifier', model)])
     pipeline.fit(X_train, y_train)
     y_pred = pipeline.predict(X_val)
     
-    print(f"\n{name} - Acurácia: {accuracy_score(y_val, y_pred):.4f}")
+    print(f"\n{name} - Accuracy: {accuracy_score(y_val, y_pred):.4f}")
     
-    # Matriz de confusão
+    # Confusion matrix
     cm = confusion_matrix(y_val, y_pred)
     plt.figure(figsize=(8, 6))
     sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
-    plt.title(f'Matriz de Confusão - {name}')
+    plt.title(f'Confusion Matrix - {name}')
     plt.show()
 ```
 
 ---
 
-## **9. Otimização de Hiperparâmetros**
+## **9. Hyperparameter Optimization**
 ```python
-# Definindo os hiperparâmetros para otimização do Random Forest
+# Defining the hyperparameters for optimizing Random Forest
 param_grid = {
     'classifier__n_estimators': [100, 200, 300],
     'classifier__max_depth': [None, 10, 20, 30],
@@ -247,61 +248,64 @@ param_grid = {
     'classifier__min_samples_leaf': [1, 2, 4]
 }
 
-# Grid Search para Random Forest
+# Grid Search for Random Forest
 rf_pipeline = Pipeline(steps=[('preprocessor', preprocessor), ('classifier', RandomForestClassifier())])
 grid_search = GridSearchCV(rf_pipeline, param_grid, cv=5, n_jobs=-1, verbose=2)
 grid_search.fit(X_train, y_train)
 
-# Melhor combinação de parâmetros
-print("Melhores parâmetros:", grid_search.best_params_)
+# Best parameter combination
+print("Best parameters:", grid_search.best_params_)
 ```
 
 ---
 
-## **10. Importância das Features**
+## **10. Feature Importance**
 ```python
-# Melhor modelo após a busca
+# Best model after the search
 best_model = grid_search.best_estimator_
 
-# Importância das features
+# Feature importance
 feature_importance = best_model.named_steps['classifier'].feature_importances_
 feature_names = np.concatenate([numeric_features, best_model.named_steps['preprocessor'].transformers_[1][1].get_feature_names_out()])
 
-# Criando DataFrame para visualização
+# Creating a DataFrame for visualization
 feature_importance_df = pd.DataFrame({'feature': feature_names, 'importance': feature_importance})
 feature_importance_df = feature_importance_df.sort_values(by='importance', ascending=False).head(15)
 
-# Visualizando a importância das 15 principais features
+# Visualizing the top 15 important features
 plt.figure(figsize=(10, 6))
 sns.barplot(x='importance', y='feature', data=feature_importance_df)
-plt.title('Top 15 Importância das Features')
+plt.title('Top 15 Feature Importance')
 plt.tight_layout()
 plt.show()
 ```
 
 ---
 
-## **11. Submissão**
+## **11. Submission**
 ```python
-# Criando a feature de gasto total no dataset de teste
+# Creating the total spend feature for the test dataset
 test_data['TotalSpend'] = (test_data['RoomService'] + test_data['FoodCourt'] + 
                            test_data['ShoppingMall'] + test_data['Spa'] + test_data['VRDeck'])
 
-# Aplicando o melhor modelo aos dados de teste
+# Applying the best model to the test data
 test_predictions = best_model.predict(test_data)
 
-# Criando o arquivo de submissão
+# Creating the submission file
 submission = pd.DataFrame({'PassengerId': test_data['PassengerId'], 'Transported': test_predictions})
 submission.to_csv('submission.csv', index=False)
 ```
 
 ---
 
-## **Conclusão**
+## **Conclusion**
 ```markdown
-### Conclusão
-Este projeto aborda um pipeline completo de aprendizado de máquina, desde a exploração dos dados até a criação de features, modelagem e submissão para uma competição Kaggle. Além disso, utilizamos a otimização de hiperparâmetros para melhorar o desempenho dos modelos.
+### Conclusion
+This project demonstrates a complete machine learning pipeline, from data exploration to feature engineering, modeling, and submission for a Kaggle competition. Additionally, we used hyperparameter tuning to enhance the model's performance.
 ```
+
+
+
 
 <br>
 
