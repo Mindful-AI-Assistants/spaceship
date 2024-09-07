@@ -373,22 +373,20 @@ These plots and analyses help to understand the data, the performance of various
 
 
 
-## Future Work
+## 👀 Future Work
 
 - Try ensemble methods to improve prediction accuracy
 - Explore deep learning approaches
 - Conduct more in-depth feature engineering
 
-## Contributing
-
+🤝 Contributing
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+🙏 Acknowledgments
+Kaggle for hosting the competition and providing the dataset
+The Scikit-learn team for their excellent machine learning library
 
-## Acknowledgments
+#
 
-- Kaggle for hosting the competition and providing the dataset
-- The Scikit-learn team for their excellent machine learning library
-
+This project is licensed under the MIT License - see the LICENSE.md file for details.
