@@ -1,10 +1,4 @@
-Aqui está o código revisado e o README.md formatado de maneira profissional, com um layout claro para o GitHub e o Jupyter Notebook, incluindo as seções onde os gráficos gerados devem ser inseridos.
 
----
-
-### **Versão Final para GitHub README.md**:
-
-```markdown
 # **Spaceship Titanic - Transport Prediction 🚀**
 
 ## Overview
@@ -251,12 +245,4 @@ print("Submission file 'submission.csv' created successfully.")
 This project demonstrates a complete machine learning pipeline from data exploration, feature engineering, and model training to hyperparameter tuning and submission. The pipeline ensures thorough analysis and optimization to achieve the best model performance.
 ```
 
----
-
-### **Versão Finalizada para Jupyter Notebook**:
-
-O conteúdo da versão Jupyter Notebook já está adequado, e pode ser diretamente adaptado para o formato do Jupyter, como descrito no exemplo anterior. O código pode ser executado sequencialmente, e as instruções sobre onde inserir os gráficos estão devidamente comentadas nas seções correspondentes.
-
----
-
-Agora você tem um README.md elegante para o GitHub, juntamente com um código Python claro e profissional para execução no Jupyter Notebook!
+#
