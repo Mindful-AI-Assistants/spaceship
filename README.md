@@ -89,6 +89,256 @@ pip install numpy pandas scikit-learn matplotlib seaborn
 
 This repository contains a project for analyzing and predicting whether passengers will be transported using the Space Titanic dataset from [Kaggle](https://www.kaggle.com/c/spaceship-titanic). The goal is to predict if a passenger will be transported or not.
 
+
+#### 1. Project Title
+```markdown
+# Spaceship Titanic - Transport Prediction
+```
+
+#### 2. Project Description
+```markdown
+This project aims to predict whether a passenger aboard the Spaceship Titanic will be transported to another dimension. We use the dataset available in the Kaggle Spaceship Titanic competition and apply various Machine Learning techniques such as Logistic Regression, Random Forest, and Gradient Boosting to make predictions.
+```
+
+#### 3. Installation
+```markdown
+### Prerequisites
+Ensure you have the following Python libraries installed:
+- `numpy`
+- `pandas`
+- `matplotlib`
+- `seaborn`
+- `scikit-learn`
+
+You can install the dependencies by running the following command:
+```bash
+pip install -r requirements.txt
+```
+
+#### 4. Loading Data
+```markdown
+### Loading Data
+You can load the data directly from Kaggle:
+
+```python
+import pandas as pd
+
+train_data = pd.read_csv('/kaggle/input/spaceship-titanic/train.csv')
+test_data = pd.read_csv('/kaggle/input/spaceship-titanic/test.csv')
+```
+```
+
+#### 5. Data Exploration
+```markdown
+### Data Exploration
+
+In this step, we explore the features of the dataset. Below are some initial visualizations:
+
+- Transported count distribution:
+```python
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+plt.figure(figsize=(8, 6))
+sns.countplot(x='Transported', data=train_data)
+plt.title('Transported Distribution')
+plt.show()
+```
+
+- Relationship between numerical variables and the target (Transported):
+```python
+numeric_features = ['Age', 'RoomService', 'FoodCourt', 'ShoppingMall', 'Spa', 'VRDeck']
+
+for feature in numeric_features:
+    plt.figure(figsize=(10, 6))
+    sns.boxplot(x='Transported', y=feature, data=train_data)
+    plt.title(f'{feature} vs Transported')
+    plt.show()
+```
+```
+
+#### 6. Feature Engineering
+```markdown
+### Feature Engineering
+
+We create new features, such as extracting components from the cabin information and creating a "total spend" column:
+
+```python
+# Extract components from cabin
+train_data[['Deck', 'Num', 'Side']] = train_data['Cabin'].str.split('/', expand=True)
+
+# Create a feature for total spend
+train_data['TotalSpend'] = (train_data['RoomService'] + train_data['FoodCourt'] + 
+                            train_data['ShoppingMall'] + train_data['Spa'] + train_data['VRDeck'])
+```
+```
+
+#### 7. Data Preprocessing
+```markdown
+### Data Preprocessing
+
+We apply pipelines to handle missing values, normalize numerical features, and encode categorical variables:
+
+```python
+from sklearn.pipeline import Pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.compose import ColumnTransformer
+
+# Pipeline for numerical features
+numeric_transformer = Pipeline(steps=[
+    ('imputer', SimpleImputer(strategy='median')),
+    ('scaler', StandardScaler())
+])
+
+# Pipeline for categorical features
+categorical_transformer = Pipeline(steps=[
+    ('imputer', SimpleImputer(strategy='constant', fill_value='missing')),
+    ('onehot', OneHotEncoder(handle_unknown='ignore'))
+])
+
+# Apply to full dataset
+preprocessor = ColumnTransformer(
+    transformers=[
+        ('num', numeric_transformer, numeric_features),
+        ('cat', categorical_transformer, ['HomePlanet', 'Destination', 'Deck', 'Side'])
+    ])
+```
+```
+
+#### 8. Model Training and Evaluation
+```markdown
+### Model Training and Evaluation
+
+We use three models: Logistic Regression, Random Forest, and Gradient Boosting, and evaluate their accuracy using a validation set.
+
+```python
+from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
+from sklearn.metrics import accuracy_score, confusion_matrix
+from sklearn.model_selection import train_test_split
+
+# Splitting data
+X = train_data.drop(columns=['Transported'])
+y = train_data['Transported']
+X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)
+
+models = {
+    'Logistic Regression': LogisticRegression(),
+    'Random Forest': RandomForestClassifier(),
+    'Gradient Boosting': GradientBoostingClassifier()
+}
+
+for name, model in models.items():
+    pipeline = Pipeline(steps=[('preprocessor', preprocessor), ('classifier', model)])
+    pipeline.fit(X_train, y_train)
+    y_pred = pipeline.predict(X_val)
+    
+    print(f"\n{name} - Accuracy: {accuracy_score(y_val, y_pred):.4f}")
+    
+    # Confusion matrix
+    cm = confusion_matrix(y_val, y_pred)
+    plt.figure(figsize=(8, 6))
+    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
+    plt.title(f'Confusion Matrix - {name}')
+    plt.show()
+```
+```
+
+#### 9. Hyperparameter Tuning
+```markdown
+### Hyperparameter Tuning
+
+We tune the hyperparameters of the Random Forest model:
+
+```python
+from sklearn.model_selection import GridSearchCV
+
+# Hyperparameter grid
+param_grid = {
+    'classifier__n_estimators': [100, 200, 300],
+    'classifier__max_depth': [None, 10, 20, 30],
+    'classifier__min_samples_split': [2, 5, 10],
+    'classifier__min_samples_leaf': [1, 2, 4]
+}
+
+grid_search = GridSearchCV(estimator=pipeline, param_grid=param_grid, cv=5, n_jobs=-1, verbose=2)
+grid_search.fit(X_train, y_train)
+
+# Print best parameters
+print("Best parameters:", grid_search.best_params_)
+```
+```
+
+#### 10. Feature Importance
+```markdown
+### Feature Importance
+
+We analyze the feature importance for the tuned Random Forest model:
+
+```python
+# Best model
+best_model = grid_search.best_estimator_
+
+# Feature importance
+feature_importance = best_model.named_steps['classifier'].feature_importances_
+feature_names = preprocessor.transformers_[0][2] + preprocessor.transformers_[1][1].get_feature_names_out()
+
+# Create a DataFrame for visualization
+feature_importance_df = pd.DataFrame({'feature': feature_names, 'importance': feature_importance})
+feature_importance_df = feature_importance_df.sort_values(by='importance', ascending=False).head(15)
+
+# Plot top 15 important features
+plt.figure(figsize=(10, 6))
+sns.barplot(x='importance', y='feature', data=feature_importance_df)
+plt.title('Top 15 Feature Importance')
+plt.tight_layout()
+plt.show()
+```
+```
+
+#### 11. Submission
+```markdown
+### Submission
+
+Finally, we apply the trained model on the test set and create the submission file for the Kaggle competition.
+
+```python
+test_data['TotalSpend'] = (test_data['RoomService'] + test_data['FoodCourt'] + 
+                           test_data['ShoppingMall'] + test_data['Spa'] + test_data['VRDeck'])
+
+# Apply the model to the test set
+test_predictions = best_model.predict(test_data)
+
+# Create submission file
+submission = pd.DataFrame({'PassengerId': test_data['PassengerId'], 'Transported': test_predictions})
+submission.to_csv('submission.csv', index=False)
+```
+```
+
+---
+
+### Enabling Automatic Visualizations in VSCode for Jupyter Notebooks:
+
+- When using VSCode with the Jupyter Notebook extension, ensure that the interactive mode for Matplotlib is enabled by setting `matplotlib inline` at the top of the notebook:
+
+```python
+%matplotlib inline
+```
+
+- This ensures that all visualizations generated with `plt.show()` will be displayed automatically in the interactive notebook environment.
+
+
+
+
+
+
+
+
+
+
+'
+---0----
 ## Dependencies
 
 The code uses the following Python libraries:
