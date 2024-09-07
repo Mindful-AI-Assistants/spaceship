@@ -296,8 +296,6 @@ submission = pd.DataFrame({'PassengerId': test_data['PassengerId'], 'Transported
 submission.to_csv('submission.csv', index=False)
 ```
 
----
-
 ## **Conclusion**
 ```markdown
 ### Conclusion
