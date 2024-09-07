@@ -5,6 +5,16 @@
 
 In this competition, we use machine learning techniques to analyze the recovered records from the Spaceship Titanic's damaged computer system and predict which passengers were transported to an alternate dimension.
 
+## Table of Contenbt
+
+1. A project description
+2. Instructions for getting started
+3. An overview of the project structure
+4. A brief explanation of the methodology
+5. Placeholders for results and future work
+6. Sections on contributing and licensing
+7. Acknowledgments
+
 ### Dataset
 
 The dataset includes passenger information such as:
