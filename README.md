@@ -251,6 +251,58 @@ This project illustrates the complete machine learning workflow, from data explo
 For more detailed exploration, you can access the [complete Jupyter notebook](link-to-notebook) with all the code and visualizations.
 
 
+## Key Notes:
+
+Certainly! Continuing from where we left off:
+
+```python
+# Feature Importance (cont'd)
+feature_names = np.concatenate([numeric_features, 
+                                  best_model.named_steps['preprocessor']
+                                  .transformers_[1][1]
+                                  .get_feature_names_out()])
+
+# Creating a DataFrame for feature importance
+feature_importance_df = pd.DataFrame({'feature': feature_names, 
+                                      'importance': feature_importance})
+feature_importance_df = feature_importance_df.sort_values(by='importance', 
+                                                          ascending=False).head(15)
+
+# Visualizing feature importance
+plt.figure(figsize=(10, 6))
+sns.barplot(x='importance', y='feature', data=feature_importance_df)
+plt.title('Top 15 Feature Importance')
+plt.tight_layout()
+plt.show()
+
+# 12. Making Predictions on the Test Data
+test_data['TotalSpend'] = (test_data['RoomService'] + test_data['FoodCourt'] +
+                           test_data['ShoppingMall'] + test_data['Spa'] + test_data['VRDeck'])
+
+# Applying the best model to the test data
+test_predictions = best_model.predict(test_data)
+
+# Creating the submission file
+submission = pd.DataFrame({'PassengerId': test_data['PassengerId'], 
+                           'Transported': test_predictions})
+submission.to_csv('submission.csv', index=False)
+
+# Final output message
+print("Submission file 'submission.csv' created successfully.")
+```
+
+### How to Use This Notebook:
+
+1. **Install Dependencies**: If not already installed, run the cell that installs the required libraries.
+
+2. **Load Data**: Ensure that `train.csv` and `test.csv` are in the working directory or adjust the file paths accordingly.
+
+3. **Run Cells**: Execute each cell in the notebook sequentially. This will guide you through data loading, exploration, feature engineering, preprocessing, model training, evaluation, and making predictions.
+
+4. **Save & Submit**: After running all cells, check the generated `submission.csv` file for your predictions.
+
+You can copy and paste the provided code into a Jupyter Notebook or a JupyterLab environment to execute it. Each section is designed to be run in its own cell for clarity and ease of execution.
+
 
 ## 👀 Future Work
 
