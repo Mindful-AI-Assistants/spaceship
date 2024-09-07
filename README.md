@@ -2,6 +2,9 @@
 
 # 🚀 Spaceship Titanic Prediction - Kaggle Competition
 
+
+This competition runs indefinitely with a rolling leaderboard. [Learn more](https://www.kaggle.com/docs/competitions#getting-started).
+
 Welcome to the Spaceship 
 
 Titanic repository! This project is an entry for the Kaggle competition "Spaceship Titanic", where we predict which passengers were transported to an alternate dimension during the Spaceship Titanic's collision with a spacetime anomaly.
