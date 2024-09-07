@@ -1,4 +1,8 @@
+## Overview
 
+This competition runs indefinitely with a rolling leaderboard. Learn more.
+
+#
 ## Dataset Description
 
 In this competition your task is to predict whether a passenger was transported to an alternate dimension during the Spaceship Titanic's 
@@ -9,3 +13,12 @@ damaged computer system.
 
 -train.csv - Personal records for about two-thirds (~8700) of the passengers, to be used as training data
 -
+
+
+
+
+
+
+
+
+$
