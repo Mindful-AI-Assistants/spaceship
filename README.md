@@ -21,7 +21,7 @@ In this competition, we use machine learning techniques to analyze the recovered
 6. Sections on contributing and licensing
 7. Acknowledgments
 
-### Dataset
+## Dataset
 
 The dataset includes passenger information such as:
 - Age
