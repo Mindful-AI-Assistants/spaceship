@@ -1,6 +1,6 @@
 
 
-# 🚀 Spaceship Titanic Prediction A Kaggle Competition
+# 🚀 Spaceship Titanic Prediction - Kaggle Competition
 
 Welcome to the Spaceship 
 
