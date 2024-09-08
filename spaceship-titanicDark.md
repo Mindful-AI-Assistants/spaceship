@@ -1,5 +1,6 @@
 
-# **Spaceship Titanic - Transport Prediction 🚀**
+
+# **Spaceship Titanic  🚀 Transport Prediction**
 
 ## Overview
 
@@ -173,7 +174,7 @@ print(f"Ensemble Model ROC AUC: {roc_auc:.4f}")
 cm = confusion_matrix(y_val_pca, y_pred_ensemble)
 plt.figure(figsize=(8, 6))
 sns.heatmap(cm, annot=True, fmt='d', cmap='Purples')
-plt.title('Confusion Matrix - Random Forest (Dark Mode)')
+plt.title('Confusion Matrix - Ensemble Model (Dark Mode)')
 plt.xlabel('Predicted')
 plt.ylabel('Actual')
 plt.show()
@@ -225,6 +226,10 @@ plt.show()
 test_data['TotalSpend'] = (test_data['RoomService'] + test_data['FoodCourt'] +
                            test_data['ShoppingMall'] + test_data['Spa'] + test_data['VRDeck'])
 
+# Assuming you have transformed the test data similarly to the training data
+X_test = test_data[['Age', 'RoomService', 'FoodCourt', 'ShoppingMall', 'Spa', 'VRDeck', 'TotalSpend', 'AvgSpend', 'CabinNumRatio']].fillna(0)
+X_test_pca = pca.transform(X_test)
+
 test_predictions = ensemble_model.predict(X_test_pca)
 
 submission = pd.DataFrame({'PassengerId': test_data['PassengerId'], 'Transported': test_predictions})
@@ -239,4 +244,11 @@ This project demonstrates a complete machine learning pipeline from feature engi
 
 ---
 
-Este README.md agora inclui todas as melhorias sugeridas, como **PCA**, **Ensemble Learning**, gráficos elegantes em modo escuro, e detalhes mais robustos na documentação!
+### **Jupyter Notebook**
+
+```python
+# Spaceship Titanic - Transport Prediction 🚀
+
+## 1. Introduction
+
+This notebook aims to predict whether a passenger aboard the Spaceship Titanic will be transported to another dimension using machine learning algorithms. We will use the Kaggle Spaceship Titanic dataset, explore the data,
