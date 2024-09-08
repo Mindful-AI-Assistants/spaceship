@@ -372,4 +372,7 @@ The Scikit-learn team for their excellent machine learning library
 
 #
 
-This project is licensed under the MIT License - see the LICENSE.md file for details.
+
+ 
+##### <p align="center">Copyright 2024 Mindful-AI-Assistants. Code released under the  [MIT license.]( https://github.com/Mindful-AI-Assistants/.github/blob/ad6948fdec771e022d49cd96f99024fcc7f1106a/LICENSE)
+
