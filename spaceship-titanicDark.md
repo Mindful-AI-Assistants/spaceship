@@ -279,3 +279,23 @@ This project demonstrates a complete machine learning pipeline from feature engi
 ## 1. Introduction
 
 This notebook aims to predict whether a passenger aboard the Spaceship Titanic will be transported to another dimension using machine learning algorithms. We will use the Kaggle Spaceship Titanic dataset, explore the data,
+```
+
+
+
+
+
+'
+
+
+
+
+
+
+
+#
+
+
+ 
+##### <p align="center">Copyright 2024 Mindful-AI-Assistants. Code released under the  [MIT license.]( https://github.com/Mindful-AI-Assistants/.github/blob/ad6948fdec771e022d49cd96f99024fcc7f1106a/LICENSE)
+
