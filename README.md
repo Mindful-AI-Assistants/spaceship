@@ -294,18 +294,6 @@ submission.to_csv('submission.csv', index=False)
 print("Submission file 'submission.csv' created successfully.")
 ```
 
-### How to Use This Notebook:
-
-1. **Install Dependencies**: If not already installed, run the cell that installs the required libraries.
-
-2. **Load Data**: Ensure that `train.csv` and `test.csv` are in the working directory or adjust the file paths accordingly.
-
-3. **Run Cells**: Execute each cell in the notebook sequentially. This will guide you through data loading, exploration, feature engineering, preprocessing, model training, evaluation, and making predictions.
-
-4. **Save & Submit**: After running all cells, check the generated `submission.csv` file for your predictions.
-
-You can copy and paste the provided code into a Jupyter Notebook or a JupyterLab environment to execute it. Each section is designed to be run in its own cell for clarity and ease of execution.
-
 
 ## 👀 Future Work
 
