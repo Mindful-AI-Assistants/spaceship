@@ -10,6 +10,7 @@ This repository contains a machine learning project for the Kaggle competition "
 
 In this competition, we use machine learning techniques to analyze data from the Spaceship Titanic's damaged computer system and predict whether passengers were transported.
 
+-----
 ## Project Structure
 
 1. **Introduction**
@@ -23,6 +24,28 @@ In this competition, we use machine learning techniques to analyze data from the
 9. **Feature Importance (Random Forest & Gradient Boosting)**
 10. **Submission**
 11. **Conclusion**
+
+1. Project Structure
+
+The project follows a complete machine learning pipeline, which includes:
+
+Installation of Dependencies: Installing and importing necessary Python libraries.
+
+Data Loading: Loading the training and testing datasets.
+
+Exploratory Data Analysis (EDA): A first look at the data through visualization and summary statistics.
+
+Feature Engineering: Enhancing the dataset by creating new variables to improve prediction.
+
+Preprocessing: Handling missing values, scaling numeric features, and encoding categorical variables.
+
+Model Building: Training different machine learning models and evaluating their performance.
+
+Hyperparameter Optimization: Using grid search to fine-tune the best model.
+
+Submission: Predicting on the test set and creating a submission file for Kaggle.
+
+-----
 
 ## Getting Started
 
