@@ -25,7 +25,11 @@ In this competition, we use machine learning techniques to analyze data from the
 10. **Submission**
 11. **Conclusion**
 
+
+## 1. Project Structure
+
 1. Project Structure
+
 
 The project follows a complete machine learning pipeline, which includes:
 
@@ -45,7 +49,7 @@ Hyperparameter Optimization: Using grid search to fine-tune the best model.
 
 Submission: Predicting on the test set and creating a submission file for Kaggle.
 
------
+
 
 ## Getting Started
 
