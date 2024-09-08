@@ -1,64 +1,41 @@
 
+https://github.com/user-attachments/assets/2a010218-b6a9-468d-97dc-4c6db34271e8
+
+https://github.com/user-attachments/assets/1b82f588-5551-4b17-bd6e-575fbe51e021
+
+<br>
 
 
+# **Spaceship Titanic  🚀 Transport Prediction**
 
+## Overview
 
+This repository contains a machine learning project for the Kaggle competition "Spaceship Titanic." The goal is to predict which passengers were transported to an alternate dimension during a collision with a spacetime anomaly.
 
-'
-🛸　　　 　🌎　°　　🌓　•　　.°•　　　🚀 ✯ 🛸　.　　•.  　🌎　°　.•　🌓　•　　.°•　　•　🚀 ✯.    •.    .  •. 
-　.　•　★　*　　　　　°　　.　　🛰 　°·　　•.      ๏        .•       🪐  
-.　•　•　° ★　•  ☄.       ๏       •.      .  •.      .     •.      .  🛸　.　　•.  　🌎　°　.•　🌓　•　　.°•　　•　🚀 ✯.    •.    .  •. 
-　.　•　★　*　　　　　°　　.　　🛰 　°·　　•.      ๏        .•       🪐
-.　•　•　° ★　•  ☄.       ๏       •.      .  •.      .     •.      .     •. •    
-　　　★　*　　　　　°　　　　🛰 　°·　👩‍🚀🚀⋆ ⭒˚.⋆ 🪐  ⋆⭒˚.⋆                
-.　　　•　° ★　•  ☄
+## Project Description
 
+In this competition, we use machine learning techniques to analyze data from the Spaceship Titanic's damaged computer system and predict whether passengers were transported.
 
-<br><br>
-
-
-# **Spaceship Titanic - Transport Prediction**
-
-This project aims to predict whether a passenger aboard the Spaceship Titanic will be transported to another dimension using machine learning algorithms. We'll use the dataset provided by Kaggle, explore the data, perform feature engineering, and implement various machine learning models to predict the outcome with high accuracy.
-
-
-
-## **1. Project Structure**
-
-The project follows a complete machine learning pipeline, which includes:
-
-1. **Installation of Dependencies**: Installing and importing necessary Python libraries.
-2. **Data Loading**: Loading the training and testing datasets.
-3. **Exploratory Data Analysis (EDA)**: A first look at the data through visualization and summary statistics.
-4. **Feature Engineering**: Enhancing the dataset by creating new variables to improve prediction.
-5. **Preprocessing**: Handling missing values, scaling numeric features, and encoding categorical variables.
-6. **Model Building**: Training different machine learning models and evaluating their performance.
-7. **Hyperparameter Optimization**: Using grid search to fine-tune the best model.
-8. **Submission**: Predicting on the test set and creating a submission file for Kaggle.
-
-   
+-----
 ## Project Structure
 
-The project follows a complete machine learning pipeline, which includes:
+1. **Introduction**
+2. **Dependencies Installation**
+3. **Data Loading**
+4. **Initial Data Exploration**
+5. **Feature Engineering and PCA**
+6. **Data Preprocessing**
+7. **Model Training and Evaluation (Ensemble Learning)**
+8. **Hyperparameter Optimization**
+9. **Feature Importance (Random Forest & Gradient Boosting)**
+10. **Submission**
+11. **Conclusion**
 
- - Installation of Dependencies: Installing and importing necessary Python libraries.
 
- - Data Loading: Loading the training and testing datasets.
+## 1. Project Structure
 
- - Exploratory Data Analysis (EDA): A first look at the data through visualization and summary statistics.
-
- - Feature Engineering: Enhancing the dataset by creating new variables to improve prediction.
-
- - Preprocessing: Handling missing values, scaling numeric features, and encoding categorical variables.
-
- - Model Building: Training different machine learning models and evaluating their performance.
-   
-- Hyperparameter Optimization: Using grid search to fine-tune the best model.
-  
-- Submission: Predicting on the test set and creating a submission file for Kaggle.
-
----
 1. Project Structure
+
 
 The project follows a complete machine learning pipeline, which includes:
 
@@ -78,172 +55,167 @@ Hyperparameter Optimization: Using grid search to fine-tune the best model.
 
 Submission: Predicting on the test set and creating a submission file for Kaggle.
 
----
 
 
-## **2. Installation of Dependencies**
+## Getting Started
 
-First, make sure to install all the required libraries for the project. Run the following command:
+### Prerequisites
+
+- Python 3.x
+- Required Libraries: `numpy`, `pandas`, `matplotlib`, `seaborn`, `scikit-learn`
+
+### Installation
+
+Install the required libraries using pip:
 
 ```bash
 pip install numpy pandas matplotlib seaborn scikit-learn
 ```
 
-Then, import the necessary libraries:
+### Usage
+
+1. **Clone the Repository**
+
+    ```bash
+    git clone https://github.com/yourusername/spaceship-titanic.git
+    ```
+
+2. **Navigate to the Project Directory**
+
+    ```bash
+    cd spaceship-titanic
+    ```
+
+3. **Run the Main Script**
+
+    ```bash
+    python main.py
+    ```
+
+## Code Explanation
+
+### 1. Introduction
+
+The goal of this project is to predict if a passenger will be transported using machine learning models.
+
+### 2. Installation of Dependencies
 
 ```python
-# Importing libraries
+!pip install numpy pandas matplotlib seaborn scikit-learn
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.linear_model import LogisticRegression
-from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
-from sklearn.model_selection import train_test_split, GridSearchCV
-from sklearn.metrics import accuracy_score, confusion_matrix
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier, VotingClassifier
+from sklearn.model_selection import train_test_split, GridSearchCV, cross_val_score
+from sklearn.metrics import accuracy_score, f1_score, roc_auc_score, confusion_matrix
+from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
 
-# Ensuring that visualizations are automatically shown
 %matplotlib inline
+plt.style.use('dark_background')  # Setting dark mode for visualizations
 ```
 
----
-
-## **3. Loading the Data**
-
-Load the dataset into a pandas DataFrame:
+### 3. Loading the Data
 
 ```python
-# Load the training and test data
 train_data = pd.read_csv('train.csv')
 test_data = pd.read_csv('test.csv')
-
-# Check the first few rows of the training data
 train_data.head()
 ```
 
----
-
-## **4. Exploratory Data Analysis (EDA)**
-
-Let's start by exploring the data. We can check the distribution of the target variable (`Transported`) and investigate the data types.
+### 4. Initial Data Exploration
 
 ```python
-# Checking general dataset information
 train_data.info()
-
-# Checking the distribution of the target variable
 plt.figure(figsize=(8, 6))
-sns.countplot(x='Transported', data=train_data)
-plt.title('Transported Distribution')
-plt.show()
+sns.countplot(x='Transported', data=train_data, palette='cool')
+plt.title('Distribution of Transported')
+plt.show()  # Dark mode applied
 ```
 
-Next, visualize the relationship between the numerical features and the target variable:
+### 5. Feature Engineering and PCA
 
 ```python
-# Define numerical features
-numeric_features = ['Age', 'RoomService', 'FoodCourt', 'ShoppingMall', 'Spa', 'VRDeck']
+# Feature engineering: Total Spend and Average Spend
+train_data['TotalSpend'] = train_data['RoomService'] + train_data['FoodCourt'] + train_data['ShoppingMall'] + train_data['Spa'] + train_data['VRDeck']
+train_data['AvgSpend'] = train_data['TotalSpend'] / 5
+train_data['CabinNumRatio'] = pd.to_numeric(train_data['Num'], errors='coerce') / train_data['Age']
 
-# Visualizing the relationship between numerical variables and the target
-for feature in numeric_features:
-    plt.figure(figsize=(10, 6))
-    sns.boxplot(x='Transported', y=feature, data=train_data)
-    plt.title(f'{feature} vs Transported')
-    plt.show()
+# PCA for dimensionality reduction
+X = train_data[['Age', 'RoomService', 'FoodCourt', 'ShoppingMall', 'Spa', 'VRDeck', 'TotalSpend', 'AvgSpend', 'CabinNumRatio']].fillna(0)
+y = train_data['Transported']
+
+pca = PCA(n_components=2)
+X_pca = pca.fit_transform(X)
+
+plt.figure(figsize=(10, 6))
+plt.scatter(X_pca[:, 0], X_pca[:, 1], c=y, cmap='coolwarm', edgecolor='k', alpha=0.7)
+plt.title('PCA of Features (2 Components) - Dark Mode')
+plt.xlabel('Principal Component 1')
+plt.ylabel('Principal Component 2')
+plt.grid(True)
+plt.show()  # PCA plot in dark mode
 ```
 
-
-
-## **5. Feature Engineering**
-
-Create new features that might help improve the model’s performance, such as splitting the `Cabin` column and calculating total spending.
+### 6. Data Preprocessing
 
 ```python
-# Split the Cabin column into Deck, Number, and Side
-train_data[['Deck', 'Num', 'Side']] = train_data['Cabin'].str.split('/', expand=True)
-
-# Create a new feature representing the total spend of a passenger
-train_data['TotalSpend'] = (train_data['RoomService'] + train_data['FoodCourt'] + 
-                            train_data['ShoppingMall'] + train_data['Spa'] + train_data['VRDeck'])
-
-# Check the new features
-train_data[['Cabin', 'Deck', 'Num', 'Side', 'TotalSpend']].head()
-```
-
-
-
-## **6. Data Preprocessing**
-
-Preprocessing the data is crucial to ensure that machine learning models can interpret the features correctly. We will impute missing values, scale the numeric data, and encode categorical features.
-
-```python
-# Pipeline for numeric features
 numeric_transformer = Pipeline(steps=[
     ('imputer', SimpleImputer(strategy='median')),
     ('scaler', StandardScaler())
 ])
 
-# Pipeline for categorical features
 categorical_transformer = Pipeline(steps=[
     ('imputer', SimpleImputer(strategy='constant', fill_value='missing')),
     ('onehot', OneHotEncoder(handle_unknown='ignore'))
 ])
 
-# Combine the pipelines into a ColumnTransformer
 preprocessor = ColumnTransformer(
     transformers=[
-        ('num', numeric_transformer, numeric_features),
+        ('num', numeric_transformer, ['Age', 'RoomService', 'FoodCourt', 'ShoppingMall', 'Spa', 'VRDeck']),
         ('cat', categorical_transformer, ['HomePlanet', 'Destination', 'Deck', 'Side'])
     ])
 ```
 
----
-
-## **7. Model Building**
-
-We will train three different machine learning models: Logistic Regression, Random Forest, and Gradient Boosting. After training each model, we will evaluate its performance.
+### 7. Model Training and Evaluation (Ensemble Learning)
 
 ```python
-# Splitting the data into training and validation sets
-X = train_data.drop(columns=['Transported'])
-y = train_data['Transported']
-X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)
+X_train_pca, X_val_pca, y_train_pca, y_val_pca = train_test_split(X_pca, y, test_size=0.2, random_state=42)
 
-# Define the models
-models = {
-    'Logistic Regression': LogisticRegression(),
-    'Random Forest': RandomForestClassifier(),
-    'Gradient Boosting': GradientBoostingClassifier()
-}
+rf_model = RandomForestClassifier(n_estimators=100, random_state=42)
+gb_model = GradientBoostingClassifier(n_estimators=100, random_state=42)
 
-# Train and evaluate each model
-for name, model in models.items():
-    pipeline = Pipeline(steps=[('preprocessor', preprocessor), ('classifier', model)])
-    pipeline.fit(X_train, y_train)
-    y_pred = pipeline.predict(X_val)
-    
-    print(f"\n{name} - Accuracy: {accuracy_score(y_val, y_pred):.4f}")
-    
-    # Display the confusion matrix
-    cm = confusion_matrix(y_val, y_pred)
-    plt.figure(figsize=(8, 6))
-    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
-    plt.title(f'Confusion Matrix - {name}')
-    plt.show()
+ensemble_model = VotingClassifier(estimators=[('rf', rf_model), ('gb', gb_model)], voting='soft')
+ensemble_model.fit(X_train_pca, y_train_pca)
+y_pred_ensemble = ensemble_model.predict(X_val_pca)
+
+# Metrics
+accuracy = accuracy_score(y_val_pca, y_pred_ensemble)
+f1 = f1_score(y_val_pca, y_pred_ensemble)
+roc_auc = roc_auc_score(y_val_pca, y_pred_ensemble)
+
+print(f"Ensemble Model Accuracy: {accuracy:.4f}")
+print(f"Ensemble Model F1 Score: {f1:.4f}")
+print(f"Ensemble Model ROC AUC: {roc_auc:.4f}")
+
+# Confusion matrix
+cm = confusion_matrix(y_val_pca, y_pred_ensemble)
+plt.figure(figsize=(8, 6))
+sns.heatmap(cm, annot=True, fmt='d', cmap='Purples')
+plt.title('Confusion Matrix - Ensemble Model (Dark Mode)')
+plt.xlabel('Predicted')
+plt.ylabel('Actual')
+plt.show()
 ```
 
----
-
-## **8. Hyperparameter Optimization**
-
-We'll optimize the Random Forest model using GridSearchCV to find the best combination of hyperparameters.
+### 8. Hyperparameter Optimization
 
 ```python
-# Define the hyperparameters grid
 param_grid = {
     'classifier__n_estimators': [100, 200, 300],
     'classifier__max_depth': [None, 10, 20, 30],
@@ -251,124 +223,81 @@ param_grid = {
     'classifier__min_samples_leaf': [1, 2, 4]
 }
 
-# Perform grid search for Random Forest
-rf_pipeline = Pipeline(steps=[('preprocessor', preprocessor), ('classifier', RandomForestClassifier())])
-grid_search = GridSearchCV(rf_pipeline, param_grid, cv=5, n_jobs=-1, verbose=2)
-grid_search.fit(X_train, y_train)
+grid_search = GridSearchCV(rf_model, param_grid, cv=5, n_jobs=-1, verbose=2)
+grid_search.fit(X_train_pca, y_train_pca)
 
-# Output the best parameters
 print("Best parameters:", grid_search.best_params_)
+```
+
+### 9. Feature Importance (Random Forest & Gradient Boosting)
+
+```python
+ensemble_model.estimators_[0].fit(X_train_pca, y_train_pca)  # Random Forest
+feature_importance_rf = ensemble_model.estimators_[0].feature_importances_
+
+ensemble_model.estimators_[1].fit(X_train_pca, y_train_pca)  # Gradient Boosting
+feature_importance_gb = ensemble_model.estimators_[1].feature_importances_
+
+importance_df = pd.DataFrame({
+    'Feature': ['PC1', 'PC2'],
+    'RandomForest': feature_importance_rf,
+    'GradientBoosting': feature_importance_gb
+})
+
+importance_df = pd.melt(importance_df, id_vars=['Feature'], var_name='Model', value_name='Importance')
+
+plt.figure(figsize=(10, 6))
+sns.barplot(x='Importance', y='Feature', hue='Model', data=importance_df, palette='coolwarm')
+plt.title('Feature Importance by Model (Random Forest vs Gradient Boosting)')
+plt.tight_layout()
+plt.show()
+```
+
+### 10. Submission
+
+```python
+test_data['TotalSpend'] = (test_data['RoomService'] + test_data['FoodCourt'] +
+                           test_data['ShoppingMall'] + test_data['Spa'] + test_data['VRDeck'])
+
+# Assuming you have transformed the test data similarly to the training data
+X_test = test_data[['Age', 'RoomService', 'FoodCourt', 'ShoppingMall', 'Spa', 'VRDeck', 'TotalSpend', 'AvgSpend', 'CabinNumRatio']].fillna(0)
+X_test_pca = pca.transform(X_test)
+
+test_predictions = ensemble_model.predict(X_test_pca)
+
+submission = pd.DataFrame({'PassengerId': test_data['PassengerId'], 'Transported': test_predictions})
+submission.to_csv('submission.csv', index=False)
+```
+
+### 11. Conclusion
+
+```markdown
+This project demonstrates a complete machine learning pipeline from feature engineering and PCA to ensemble learning. We further improve the model with hyperparameter tuning and provide visualizations in dark mode for better readability. The final results show competitive accuracy and F1 scores.
 ```
 
 ---
 
-## **9. Feature Importance**
-
-After finding the best model, we can look at the most important features used by the model.
+### **Jupyter Notebook**
 
 ```python
-# Get the best model
-best_model = grid_search.best_estimator_
+# Spaceship Titanic - Transport Prediction 🚀
 
-# Feature importance from the Random Forest model
-feature_importance = best_model.named_steps['classifier'].feature_importances_
-feature_names = np.concatenate([numeric_features, best_model.named_steps['preprocessor'].transformers_[1][1].get_feature_names_out()])
+## 1. Introduction
 
-# Create a DataFrame for visualization
-feature_importance_df = pd.DataFrame({'feature': feature_names, 'importance': feature_importance})
-feature_importance_df = feature_importance_df.sort_values(by='importance', ascending=False).head(15)
-
-# Plot the top 15 most important features
-plt.figure(figsize=(10, 6))
-sns.barplot(x='importance', y='feature', data=feature_importance_df)
-plt.title('Top 15 Feature Importance')
-plt.tight_layout()
-plt.show()
+This notebook aims to predict whether a passenger aboard the Spaceship Titanic will be transported to another dimension using machine learning algorithms. We will use the Kaggle Spaceship Titanic dataset, explore the data,
 ```
 
 
-## **10. Submission**
-
-Finally, we use the best model to predict the test set and create the submission file for Kaggle.
-
-```python
-# Apply the feature engineering to the test data
-test_data['TotalSpend'] = (test_data['RoomService'] + test_data['FoodCourt'] + 
-                           test_data['ShoppingMall'] + test_data['Spa'] + test_data['VRDeck'])
-
-# Predict on the test set
-test_predictions = best_model.predict(test_data)
-
-# Create the submission file
-submission = pd.DataFrame({'PassengerId': test_data['PassengerId'], 'Transported': test_predictions})
-submission.to_csv('submission.csv', index=False)
-
-# Final output message
-print("Submission file 'submission.csv' created successfully.")
-```
 
 
-## **11. Conclusion**
 
-This project illustrates the complete machine learning workflow, from data exploration to feature engineering, model building, hyperparameter tuning, and submission. By employing various models and optimizing them through grid search, we achieved better predictions on the Spaceship Titanic dataset.
-
-For more detailed exploration, you can access the [complete Jupyter notebook](link-to-notebook) with all the code and visualizations.
+'
 
 
-## Key Notes:
-
-Certainly! Continuing from where we left off:
-
-```python
-# Feature Importance (cont'd)
-feature_names = np.concatenate([numeric_features, 
-                                  best_model.named_steps['preprocessor']
-                                  .transformers_[1][1]
-                                  .get_feature_names_out()])
-
-# Creating a DataFrame for feature importance
-feature_importance_df = pd.DataFrame({'feature': feature_names, 
-                                      'importance': feature_importance})
-feature_importance_df = feature_importance_df.sort_values(by='importance', 
-                                                          ascending=False).head(15)
-
-# Visualizing feature importance
-plt.figure(figsize=(10, 6))
-sns.barplot(x='importance', y='feature', data=feature_importance_df)
-plt.title('Top 15 Feature Importance')
-plt.tight_layout()
-plt.show()
-
-# 12. Making Predictions on the Test Data
-test_data['TotalSpend'] = (test_data['RoomService'] + test_data['FoodCourt'] +
-                           test_data['ShoppingMall'] + test_data['Spa'] + test_data['VRDeck'])
-
-# Applying the best model to the test data
-test_predictions = best_model.predict(test_data)
-
-# Creating the submission file
-submission = pd.DataFrame({'PassengerId': test_data['PassengerId'], 
-                           'Transported': test_predictions})
-submission.to_csv('submission.csv', index=False)
-
-# Final output message
-print("Submission file 'submission.csv' created successfully.")
-```
 
 
-## 👀 Future Work
-
-- Try ensemble methods to improve prediction accuracy
-- Explore deep learning approaches
-- Conduct more in-depth feature engineering
-
-🤝 Contributing
-Contributions are welcome! Please feel free to submit a Pull Request.
 
 
-🙏 Acknowledgments
-Kaggle for hosting the competition and providing the dataset
-The Scikit-learn team for their excellent machine learning library
 
 #
 
