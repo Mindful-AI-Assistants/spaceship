@@ -227,6 +227,16 @@ plt.title('Confusion Matrix - Ensemble Model (Dark Mode)')
 plt.xlabel('Predicted')
 plt.ylabel('Actual')
 plt.show()
+```
+
+<br>
+
+Confusion Matrix - Random Forest Graphic
+
+
+
+<br>
+
 
 ### 8. Hyperparameter Optimization
 
