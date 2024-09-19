@@ -138,6 +138,13 @@ plt.title('Distribution of Transported')
 plt.show()  # Dark mode applied
 ```
 
+<br>
+
+Graf Distrib]
+
+https://github.com/user-attachments/assets/4e2755a6-d1bd-4fbb-b68f-0c5accdbe596
+
+
 ### 5. Feature Engineering and PCA
 
 ```python
