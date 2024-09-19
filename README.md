@@ -172,7 +172,7 @@ plt.show()  # PCA plot in dark mode
 ```
 <br>
 
-PCA of Features (2 Components
+PCA of Features (2 Components) Graphic
 
 ![2-PCA of Paso5](https://github.com/user-attachments/assets/ac99d3f3-7b3d-4ab2-a1c0-602857f6c667)
 
@@ -227,7 +227,14 @@ plt.title('Confusion Matrix - Ensemble Model (Dark Mode)')
 plt.xlabel('Predicted')
 plt.ylabel('Actual')
 plt.show()
-```
+
+<br>
+
+Confusion Matrix - Random Forest Graphic
+
+
+
+<br>
 
 ### 8. Hyperparameter Optimization
 
