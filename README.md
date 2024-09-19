@@ -174,8 +174,7 @@ plt.show()  # PCA plot in dark mode
 
 PCA of Features (2 Components
 
-
-
+![2-PCA of Paso5](https://github.com/user-attachments/assets/ac99d3f3-7b3d-4ab2-a1c0-602857f6c667)
 
 <br>
 
