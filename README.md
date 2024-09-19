@@ -233,10 +233,9 @@ plt.show()
 
 Confusion Matrix - Random Forest Graphic
 
-
+![3-Confusion Matrix Passo7](https://github.com/user-attachments/assets/03d45c00-02a0-429b-8ba9-c7ec6462b112)
 
 <br>
-
 
 ### 8. Hyperparameter Optimization
 
