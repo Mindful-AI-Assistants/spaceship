@@ -280,6 +280,8 @@ plt.show()
 
 Feature Importance by Model (Random Forest vs Gradient Boosting) Graphic
 
+![4-Feature Importance by Model Pass9](https://github.com/user-attachments/assets/c01cf546-60bc-4875-8e1b-2a1cb2e95311)
+
 <br>
 
 ### 10. Submission
