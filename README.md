@@ -142,6 +142,10 @@ plt.show()  # Dark mode applied
 
 Transported  Distribution Graphic
 
+![1-Graf Distrib_Passo4-](https://github.com/user-attachments/assets/4e2755a6-d1bd-4fbb-b68f-0c5accdbe596)
+
+<br>
+
 
 
 
