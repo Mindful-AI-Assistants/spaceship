@@ -147,10 +147,6 @@ Transported  Distribution Graphic
 <br>
 
 
-
-
-
-
 ### 5. Feature Engineering and PCA
 
 ```python
@@ -174,6 +170,14 @@ plt.ylabel('Principal Component 2')
 plt.grid(True)
 plt.show()  # PCA plot in dark mode
 ```
+<br>
+
+PCA of Features (2 Components
+
+
+
+
+<br>
 
 ### 6. Data Preprocessing
 
