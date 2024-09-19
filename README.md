@@ -276,6 +276,11 @@ plt.title('Feature Importance by Model (Random Forest vs Gradient Boosting)')
 plt.tight_layout()
 plt.show()
 ```
+<br> 
+
+Feature Importance by Model (Random Forest vs Gradient Boosting) Graphic
+
+<br>
 
 ### 10. Submission
 
