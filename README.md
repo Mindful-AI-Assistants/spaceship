@@ -6,7 +6,7 @@
 
 ### Starship's flight trajectory 
 
-https://github.com/user-attachments/assets/d307ccdb-a8e4-4548-8c22-563198d6dab9
+
 
 https://github.com/user-attachments/assets/2a010218-b6a9-468d-97dc-4c6db34271e8
 
